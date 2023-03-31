@@ -60,6 +60,8 @@ class User(AbstractBaseUser):
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = ['username','first_name', 'last_name']
 
+    #objects = UserManager()
+
     def __str__(self):
         return self.email
 
@@ -70,6 +72,17 @@ class User(AbstractBaseUser):
         return True
 
     objects = UserManager()
+
+    def get_role(self):
+        if self.role == 1:
+            user_role = "Vendor"
+        elif self.role == 2:
+            user_role = "Customer"
+        else: 
+            user_role = "Super Admin"
+        return user_role
+        
+
 
 class UserProfile(models.Model):
     user = models.OneToOneField(User,on_delete=models.CASCADE, blank=True, null=True)
@@ -86,8 +99,13 @@ class UserProfile(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     modified_at = models.DateTimeField(auto_now=True)
 
+    def full_address(self):
+        return f'{self.address_line_1}, {self.address_line_2}'
+
     def __str__(self):
         return self.user.email
+
+    
 
 
 

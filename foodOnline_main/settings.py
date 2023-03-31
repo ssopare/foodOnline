@@ -65,6 +65,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'accounts.context_processor.get_vendor',
             ],
         },
     },
@@ -141,3 +142,15 @@ AUTH_USER_MODEL = 'accounts.User'
 # MESSAGE_TAGS = {
 #     messages.ERROR:'danger',
 # }
+
+# Email Configuration Later to be moved to env file
+EMAIL_HOST = 'smtp.gmail.com'
+ 
+EMAIL_HOST_USER = 'oparesimon123@gmail.com'
+EMAIL_HOST_PASSWORD = 'huurnnsgdxlyarmb'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+
+DEFAULT_FROM_EMAIL = 'Food Online Marketplace <oparesimon123@gmail.com>'
+
+#EMAIL_HOST_PASSWORD = 'huurnnsgdxlyarmb'
