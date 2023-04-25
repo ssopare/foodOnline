@@ -1,0 +1,128 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block content %}
+
+
+<!-- Initialize Bootstrap Toggle -->
+{% comment %} <script>
+    $(function() {
+        $('[data-toggle="toggle"]').bootstrapToggle();
+    });
+</script> {% endcomment %}
+    		
+		<!-- Main Section Start -->
+		<div class="main-section">
+            {% include 'includes/cover.html' %}
+			
+			<div class="page-section account-header buyer-logged-in">
+				<div class="container">
+					<div class="row">
+						<div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
+                            {% comment %} Load the sidebar here {% endcomment %}
+							{% include 'includes/v_sidebar.html'%}
+						</div>
+						<div class="col-lg-9 col-md-9 col-sm-12 col-xs-12">
+							<div class="user-dashboard loader-holder">
+								<div class="user-holder">
+									<h2 class='text-uppercase'>BUILD YOUR FOOD MENU</h2>
+                                    <hr>
+                                    <button class="btn btn-secondary" onclick='history.back()' ><i class="fa fa-angle-left"></i> Back</button>
+                                    <br><br>
+                                    <h6>Modify Food Item</h6>                                    
+									<!-- Render Form -->
+                                    <form action="" method = 'POST', enctype = 'multipart/form-data'>
+                                        {% csrf_token %}
+                                        <div class="form-field-set">
+                                            <div class="row">
+                                                <div class="col-lg-12 col-md-12 col-sm-12">
+                                                    <div class="field-holder">
+                                                        <label> Food Title * </label>
+                                                        {{form.food_title}}
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-field-set">
+                                            <div class="row">
+                                                <div class="col-lg-12 col-md-12 col-sm-12">
+                                                    <div class="field-holder">
+                                                        <label> Food Category * </label>
+                                                        {{form.category}}
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-field-set">
+                                            <div class="row">
+                                                <div class="col-lg-12 col-md-12 col-sm-12">
+                                                    <div class="field-holder">
+                                                        <label>Description </label>
+                                                        {{form.description}}
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>                                         
+                                                <div class="col-lg-6 col-md-6 col-sm-12">
+                                                    <div class="field-holder">
+                                                        <label>Price *</label>
+                                                        {{form.price}}
+                                                    </div>
+                                                </div>                                                                                                                       
+                                                <div class="col-lg-6 col-md-6 col-sm-12">
+                                                    <div class="field-holder">
+                                                        <label>Image *</label>
+                                                        {{form.image}}
+                                                        <br><br>
+                                                        <img src="{{food.image.url}}" alt="Food Image" width = "100" class = 'm-2'>
+                                                    </div>
+                                                </div>                                            
+                                       
+                                        <div class="form-field-set">
+                                            <div class="row">
+                                                <div class="col-lg-12 col-md-12 col-sm-12">
+                                                    <div class="field-holder">
+                                                        <label>Is Available? * </label>
+                                                        {{form.is_available}}
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div> 
+
+                                        {% comment %} 
+                                         <div class="form-group">
+                                            <label class="custom-switch mt-2" style="float:left" >
+        {{ field.label_tag }}
+        <input type="checkbox" class="custom-switch-input" name="{{form.is_available.name}}" id="{{ field.id_for_label }}" {% if form.is_available.name.value %}checked{% endif %} data-toggle="toggle" data-on="Yes" data-off="No" data-size="small">
+        
+        {{ field.errors }}
+        </label> {% endcomment %}
+    
+
+
+
+                                        {% for field in form %}
+                                            {% if field.errors %}
+                                                {% for error in field.errors %}
+                                                    <li style:color = 'red' >{{error}}</li>
+                                                {% endfor %}
+                                                
+                                            {% endif %}
+                                        {% endfor %}
+                                        <button type = 'submit' class="btn btn-info"><i class = 'fa fa-check'></i> Update</button>
+                                        <a href="{% url 'delete_food' food.id %}" onclick = "return confirm('Are you sure you want to delete?')" class = 'btn btn-danger'><i class = 'fa fa-trash'></i> Delete</a>
+                                    </form>
+																		
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- Main Section End -->
+
+    {% include 'includes/alerts.html' %}
+    
+{% endblock content %}
